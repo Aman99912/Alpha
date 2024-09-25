@@ -10,15 +10,19 @@ app.use(cors());
 
 // Functions
 async function getData(prompt) {
-  const genAI = new GoogleGenerativeAI(
-    "AIzaSyBsJI41rgA-jzQPkSLcgdETXvOsQ0OlCUY"
-  );
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-  const result = await model.generateContent(prompt);
-  const message = await result.response.text();
-  // console.log(result.response.text());
+  try {
+    const genAI = new GoogleGenerativeAI(
+      "AIzaSyBsJI41rgA-jzQPkSLcgdETXvOsQ0OlCUY"
+    );
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(prompt);
+    const message = result.response.text();
+    // console.log(result.response.text());
 
-  return message;
+    return message;
+  } catch (error) {
+    return { error };
+  }
 }
 
 app.post("/gemini", (req, res) => {

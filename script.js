@@ -143,8 +143,9 @@ function takeCommand(message) {
     const finalText = "Opening Calculator ";
     speak(finalText);
   } else {
-    const finalText = getData(message);
-    console.log(finalText);
-    speak(finalText);
+    getData("hi").then((message) => {
+      speak(message.message);
+      console.log(message.message);
+    });
   }
 }
